@@ -13,8 +13,10 @@ ZIP_FILE_NAME = 'data.zip'
 
 @pytest.fixture(autouse=True)
 def data_manager():
+    if not os.path.exists(PROJECT_RESOURCES_PATH):
+        os.mkdir(PROJECT_RESOURCES_PATH)
     archive_data_to_zip(PROJECT_DATA_PATH, PROJECT_RESOURCES_PATH, ZIP_FILE_NAME)
-    extract_data_from_zip(PROJECT_RESOURCES_PATH+'\\'+ZIP_FILE_NAME)
+    extract_data_from_zip(PROJECT_RESOURCES_PATH+'/'+ZIP_FILE_NAME)
     yield
     shutil.rmtree(PROJECT_RESOURCES_PATH)
-    os.mkdir(PROJECT_RESOURCES_PATH)
+
